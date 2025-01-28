@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<EmployeeModel>
+
+
+<div class="contaienr p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Employee List</h2>
+        </div>
+    </div>
+
+    <form asp-action="Main" method="get" class="row pt-3">
+        <div class="col-md-10">
+            <input type="text" name="search" class="form-control" placeholder="Search employees by Name or Surname..."
+                   value="@ViewBag.Search" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+
+    <br />
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Surname
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employees in Model)
+                {
+                    <tr>
+                        <td>
+                            @employees.Name
+                        </td>
+                        <td>
+                            @employees.Surname
+                        </td>
+
+                        <td width="30%">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@employees.Id" class="btn btn-primary mx-1">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Data now for now</p>
+    }
+
+
+</div>
