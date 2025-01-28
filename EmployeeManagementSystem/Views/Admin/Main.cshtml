@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@model IEnumerable<EmployeeModel>
+
+
+
+<div class="container-fluid p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Employee List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Admin" asp-action="AddEmployee" class="btn btn-primary">Add new Employee</a>
+        </div>
+    </div>
+
+    
+    <form asp-action="Main" method="get" class="row pt-3">
+        <div class="col-md-10">
+            <input type="text" name="search" class="form-control" placeholder="Search employees by Name or Surname..."
+                   value="@ViewBag.Search" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <br />
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Salary</th>
+                    <th>Contract Signed</th>
+                    <th>Contract Expired</th>
+                    <th>Activity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employees in Model)
+                {
+                    <tr>
+                        <td>@employees.Name</td>
+                        <td>@employees.Surname</td>
+                        <td>@employees.Salary</td>
+                        <td>@employees.ContractSigned.ToShortDateString()</td>
+                        <td>@employees.ContractExpired.ToShortDateString()</td>
+                        <td>@(employees.isActive ? "Active" : "Inactive")</td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Update" asp-route-id="@employees.Id" class="btn btn-primary mx-1">Update</a>
+                                <form asp-controller="Admin" asp-action="Delete" asp-route-id="@employees.Id" method="get">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No data available.</p>
+    }
+</div>

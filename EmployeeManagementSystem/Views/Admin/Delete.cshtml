@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model EmployeeModel
+
+<div class="employee-container">
+    <h2>Delete Employee</h2>
+    <p>Are you sure you want to delete this employee?</p>
+
+    <p class="employee-info">@Model.Name</p>
+    <p class="employee-info">@Model.Surname</p>
+
+    <form asp-action="DeleteConfirmed" method="post" class="form-container">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Main" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
