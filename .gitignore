@@ -1,0 +1,14 @@
+# Ignore build outputs 
+bin/ 
+obj/ 
+# Ignore Visual Studio files 
+.vs/ 
+*.user 
+*.suo 
+# Ignore other temporary files 
+*.log 
+*.tmp 
+# Exclude compiled DLLs, EXEs, and PDBs 
+*.dll 
+*.exe 
+*.pdb 
