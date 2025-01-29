@@ -1,0 +1,21 @@
+﻿.account-container {
+    background-image: url('../images/EmployeeManagement.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ensure full screen height */
+    margin: 0; /* Remove default margin if any */
+}
+
+.account-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+    opacity: 0.9;
+}

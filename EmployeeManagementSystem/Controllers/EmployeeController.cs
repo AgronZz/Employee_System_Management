@@ -1,8 +1,10 @@
 ﻿using EmployeeManagementSystem.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    [Authorize(Roles = "Employee, Admin")]
     public class EmployeeController : Controller
     {
         ApplicationDbContext _dbContext;

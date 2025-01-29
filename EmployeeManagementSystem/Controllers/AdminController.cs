@@ -3,9 +3,11 @@ using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Migrations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         public ApplicationDbContext _dbContext;
