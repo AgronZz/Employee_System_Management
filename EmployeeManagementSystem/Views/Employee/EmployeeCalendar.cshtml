@@ -1,8 +1,233 @@
 ﻿
+
+
+
+
 @{
-    ViewData["Title"] = "EmployeeCalendar";
+    ViewData["Title"] = "Calendar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>EmployeeCalendar</h1>
+<h2>Employee Calendar</h2>
+
+<div class="back-button-container">
+    <a asp-action="Main" class="btn-back">← Back to Main</a>
+</div>
+
+<div id="calendar-container">
+    <table id="calendar">
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
+
+<h2>Non-Working Days</h2>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+
+    </tr>
+    @foreach (var day in Model)
+    {
+        <tr>
+            <td>@day.Date.ToString("d")</td>
+            <td>@day.Description</td>
+
+        </tr>
+    }
+</table>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calendar = document.getElementById('calendar').getElementsByTagName('tbody')[0];
+
+            function generateCalendar(month, year) {
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const totalDays = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+
+                
+                calendar.innerHTML = '';
+
+                let day = 1;
+                let row = calendar.insertRow();
+
+               
+                for (let i = 0; i < startingDay; i++) {
+                    row.insertCell();
+                }
+
+               
+                for (let i = startingDay; i < 7; i++) {
+                    const cell = row.insertCell();
+                    cell.textContent = day;
+                    cell.dataset.date = `${year}-${month + 1}-${day}`;
+                    day++;
+                }
+
+                
+                while (day <= totalDays) {
+                    row = calendar.insertRow();
+                    for (let i = 0; i < 7; i++) {
+                        if (day > totalDays) break;
+                        const cell = row.insertCell();
+                        cell.textContent = day;
+                        cell.dataset.date = `${year}-${month + 1}-${day}`;
+                        day++;
+                    }
+                }
+
+                fetchNonWorkingDays();
+            }
+
+            const now = new Date();
+            let currentMonth = now.getMonth();
+            let currentYear = now.getFullYear();
+
+            generateCalendar(currentMonth, currentYear);
+        });
+
+    </script>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff; 
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #1e3a8a; 
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    #calendar-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    #calendar {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    #calendar th, #calendar td {
+        border: 1px solid #1e3a8a;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    #calendar th {
+        background-color: #1e3a8a;
+        color: white;
+    }
+
+    #calendar td {
+        background-color: #e0f2fe; 
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #calendar td:hover {
+        background-color: #93c5fd;
+    }
+
+    .non-working-day {
+        background-color: #f87171 !important; 
+        color: white;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    table th, table td {
+        border: 1px solid #1e3a8a;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    table th {
+        background-color: #1e3a8a;
+        color: white;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #e0f2fe;
+    }
+
+    table tr:hover {
+        background-color: #93c5fd;
+    }
+
+
+        #calendar th, #calendar td, table th, table td {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        /* Back Button Styling */
+.back-button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1e88e5; 
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; 
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease; 
+}
+
+.btn-back:hover {
+    background-color: #1565c0;
+}
+
+}
+
+</style>
+
+
+
+
 

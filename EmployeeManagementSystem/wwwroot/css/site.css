@@ -1,4 +1,4 @@
-html {
+/*html {
   font-size: 14px;
 }
 
@@ -19,4 +19,12 @@ html {
 
 body {
   margin-bottom: 60px;
+}*/
+.navbar {
+    background: linear-gradient(45deg, #1e90ff, #00bfff); /* New blue gradient */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.navbar-brand, .nav-link {
+    color: white !important; /* White text for the navbar */
 }
