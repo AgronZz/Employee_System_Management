@@ -11,6 +11,8 @@ namespace EmployeeManagementSystem.Data
         }
 
         public DbSet<EmployeeModel> Employees { get; set; }
+        public DbSet<ReviewModel> Reviews { get; set; }
+        public DbSet<NonWorkingDay> NonWorkingDays { get; set; }
 
     }
 
