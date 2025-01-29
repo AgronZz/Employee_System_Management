@@ -76,7 +76,7 @@ We plan to extend the functionality of the system with the following features:
 This project was developed as part of the Advanced Programming in .NET course by the following team members:
 - Agron Berisha
 - Arita Ademi 
-- Lebibe Mehmedi 
+- Lebibe Mehmedi
 Collaboration Tools:
 - Version Control: Git
 - Development Environment: Shared Visual Studio Projects
