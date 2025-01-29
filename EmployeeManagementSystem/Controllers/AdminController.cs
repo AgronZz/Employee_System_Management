@@ -14,6 +14,58 @@ namespace EmployeeManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
+        public IActionResult Calendar()
+        {
+            
+            var nonWorkingDays = _dbContext.NonWorkingDays.ToList();
+            return View(nonWorkingDays);
+        }
+
+        public IActionResult AddNonWorkingDay()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddNonWorkingDay(NonWorkingDay nonWorkingDay)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContext.NonWorkingDays.Add(nonWorkingDay);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Calendar"); // Make sure 'Calendar' is the correct action name.
+            }
+
+            return View(nonWorkingDay); // This ensures the view is returned with the validation errors.
+        }
+
+        public IActionResult DeleteNonWorkingDay(int id)
+        {
+            var nonWorkingDay = _dbContext.NonWorkingDays.FirstOrDefault(n => n.Id == id);
+            if (nonWorkingDay == null)
+            {
+                return NotFound();
+            }
+
+            return View(nonWorkingDay);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteNonWorkingDayConfirmed(int id)
+        {
+            var nonWorkingDay = _dbContext.NonWorkingDays.FirstOrDefault(n => n.Id == id);
+            if (nonWorkingDay != null)
+            {
+                _dbContext.NonWorkingDays.Remove(nonWorkingDay);
+                _dbContext.SaveChanges();
+            }
+
+            return RedirectToAction("Calendar");
+        }
+
 
         public IActionResult Main(string search)
         {
