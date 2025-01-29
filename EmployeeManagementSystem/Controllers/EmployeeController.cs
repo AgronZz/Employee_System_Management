@@ -13,6 +13,14 @@ namespace EmployeeManagementSystem.Controllers
         {
             _dbContext = dbContext;
         }
+        public IActionResult EmployeeCalendar()
+        {
+            
+            var nonWorkingDays = _dbContext.NonWorkingDays.ToList();
+            return View(nonWorkingDays);
+        }
+
+
         public IActionResult Main(string search)
         {
             var employees = string.IsNullOrEmpty(search)

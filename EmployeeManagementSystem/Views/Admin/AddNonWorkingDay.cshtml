@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "AddNonWorkingDay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model EmployeeManagementSystem.Models.NonWorkingDay
+
+<h2>Add Non-Working Day</h2>
+
+<form method="post">
+    <div>
+        <label for="Date">Date</label>
+        <input type="date" id="Date" name="Date" required />
+    </div>
+
+    <div>
+        <label for="Description">Description</label>
+        <input type="text" id="Description" name="Description" required />
+    </div>
+
+    <button type="submit">Add Non-Working Day</button>
+</form>
+<style>
+
+    body {
+        background: linear-gradient(135deg, #e0f7fa, #bbdefb);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        color: #1565c0;
+        text-align: center;
+        margin-top: 40px;
+        font-size: 2.5em;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px #90caf9;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.4em;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .btn-danger, .btn-secondary {
+        font-size: 1.2em;
+        padding: 12px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border: none;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #e57373;
+    }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+            transform: translateY(-3px);
+        }
+
+    .btn-secondary {
+        background-color: #90caf9;
+    }
+
+        .btn-secondary:hover {
+            background-color: #1565c0;
+            transform: translateY(-3px);
+        }
+
+
+</style>

@@ -1,0 +1,303 @@
+﻿
+@{
+    ViewData["Title"] = "Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Calendar</h1>
+
+<h2>Admin Calendar</h2>
+
+<div class="back-button-container">
+    <a asp-action="Main" class="btn-back">← Back to Main</a>
+</div>
+<div class="add-button-container">
+    <a href="@Url.Action("AddNonWorkingDay")" class="button">+ Add Non-Working Day</a>
+</div>
+
+
+<div id="calendar-container">
+    <table id="calendar">
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+</div>
+
+<h2>Non-Working Days</h2>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var day in Model)
+    {
+        <tr>
+            <td>@day.Date.ToString("d")</td>
+            <td>@day.Description</td>
+
+            <td>
+                <button class="delete-button" onclick="location.href='@Url.Action("DeleteNonWorkingDay", new { id = day.Id })'">Delete</button>
+
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const calendar = document.getElementById('calendar').getElementsByTagName('tbody')[0];
+
+            function generateCalendar(month, year) {
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const totalDays = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+
+                
+                calendar.innerHTML = '';
+
+                let day = 1;
+                let row = calendar.insertRow();
+
+                
+                for (let i = 0; i < startingDay; i++) {
+                    row.insertCell();
+                }
+
+                
+                for (let i = startingDay; i < 7; i++) {
+                    const cell = row.insertCell();
+                    cell.textContent = day;
+                    cell.dataset.date = `${year}-${month + 1}-${day}`;
+                    day++;
+                }
+
+               
+                while (day <= totalDays) {
+                    row = calendar.insertRow();
+                    for (let i = 0; i < 7; i++) {
+                        if (day > totalDays) break;
+                        const cell = row.insertCell();
+                        cell.textContent = day;
+                        cell.dataset.date = `${year}-${month + 1}-${day}`;
+                        day++;
+                    }
+                }
+
+               
+                fetchNonWorkingDays();
+            }
+
+
+            const now = new Date();
+            let currentMonth = now.getMonth();
+            let currentYear = now.getFullYear();
+
+            generateCalendar(currentMonth, currentYear);
+        });
+
+    </script>
+
+}
+<style>
+
+    /* General Body Styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff; /* Light blue background */
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Heading Styles */
+    h2 {
+        text-align: center;
+        color: #1e3a8a; /* Deep blue */
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    /* Calendar Container */
+    #calendar-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Calendar Table Styles */
+    #calendar {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        #calendar th,
+        #calendar td {
+            border: 1px solid #1e3a8a;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #calendar th {
+            background-color: #1e3a8a; /* Dark blue */
+            color: white;
+            font-weight: bold;
+        }
+
+        #calendar td {
+            background-color: #e0f2fe; /* Light blue */
+            cursor: pointer;
+        }
+
+            #calendar td:hover {
+                background-color: #93c5fd; /* Medium blue */
+            }
+
+    /* Non-Working Day Styles */
+    .non-working-day {
+        background-color: #f0f8ff !important; /* Light blue for non-working days */
+        color: #888; /* Lighter color for non-working days text */
+        font-weight: normal;
+    }
+
+    /* Non-Working Days Table Styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+        table th,
+        table td {
+            border: 1px solid #1e3a8a;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        table th {
+            background-color: #1e3a8a; /* Dark blue */
+            color: white;
+            font-weight: bold;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #e0f2fe; /* Light blue for alternate rows */
+        }
+
+        table tr:hover {
+            background-color: #93c5fd; /* Medium blue */
+        }
+
+    /* Button Styles */
+    button,
+    a.button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #1e3a8a; /* Deep blue */
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        button:hover,
+        a.button:hover {
+            background-color: #3b82f6; /* Lighter blue on hover */
+            transform: translateY(-2px);
+        }
+
+        button:active,
+        a.button:active {
+            background-color: #1d4ed8; /* Slightly darker blue when active */
+            transform: translateY(0);
+        }
+
+        button.delete-button {
+            background-color: #f87171; /* Red for delete */
+        }
+
+            button.delete-button:hover {
+                background-color: #f43f5e; /* Lighter red on hover */
+            }
+
+            button.delete-button:active {
+                background-color: #e11d48; /* Darker red when active */
+            }
+
+
+    #calendar th,
+    #calendar td,
+    table th,
+    table td {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    button,
+    a.button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    }
+
+    /* Back Button Styling */
+    .back-button-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .btn-back {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1e88e5; /* Primary blue */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px; /* Rounded edges */
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease; /* Hover effect */
+    }
+
+        .btn-back:hover {
+            background-color: #1565c0; /* Darker blue on hover */
+        }
+
+
+
+</style>
