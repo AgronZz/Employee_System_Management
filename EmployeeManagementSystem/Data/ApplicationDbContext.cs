@@ -11,6 +11,7 @@ namespace EmployeeManagementSystem.Data
         }
 
         public DbSet<EmployeeModel> Employees { get; set; }
+        public DbSet<ReviewModel> Reviews { get; set; }
 
     }
 
