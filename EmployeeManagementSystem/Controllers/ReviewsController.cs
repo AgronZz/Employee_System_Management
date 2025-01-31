@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManagementSystem.Models;
 using System.Linq;
 using System.Security.Claims;
-
+using EmployeeManagementSystem.Data;
 
 namespace EmployeeManagementSystem.Controllers
 {
