@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Project1.Models;
+using EmployeeManagementSystem.Models;
 using System.Linq;
 using System.Security.Claims;
 
