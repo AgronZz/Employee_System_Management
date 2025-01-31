@@ -27,7 +27,7 @@ namespace EmployeeManagementSystem.Controllers
                 return View();
             }
            
-            // Show only active employees
+        
             ViewBag.Employees = _dbContext.Employees
                 .Where(e => e.isActive)
                 .Select(e => new { Id = e.Id, FullName = e.Name + " " + e.Surname })
