@@ -20,7 +20,12 @@ namespace EmployeeManagementSystem.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
+                
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ErrorMessage = "Only non-registered users (guests/customers) can add reviews.";
+                return View();
+            }
            
             // Show only active employees
             ViewBag.Employees = _dbContext.Employees
