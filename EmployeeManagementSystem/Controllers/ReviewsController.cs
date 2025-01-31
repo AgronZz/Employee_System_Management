@@ -5,7 +5,8 @@ using Project1.Models;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Project1.Controllers
+
+namespace EmployeeManagementSystem.Controllers
 {
     public class ReviewsController : Controller
     {
